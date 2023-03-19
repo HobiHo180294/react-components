@@ -1,0 +1,23 @@
+.menu-header {
+  &__item {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  &__link {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &._active-link {
+      color: #e91e63;
+    }
+
+    &:hover {
+      color: #e91e63;
+    }
+  }
+}
