@@ -1,9 +1,8 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'normalize.css';
 import './styles/global.scss';
 import Layout from './components/layout/Layout';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import Header from './components/header/Header';
 
 function App() {
   return (

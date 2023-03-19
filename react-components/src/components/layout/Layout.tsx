@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-// import { Outlet } from 'react-router-dom';
+import React from 'react';
 import Header from '../header/Header';
-// import SearchBar from '../search-bar/SearchBar';
+import Section from '../sections/base/Section';
+import SearchBar from '../sections/search-bar/SearchBar';
 
-class Layout extends Component {
+class Layout extends React.Component {
   handleSearchSubmit(searchTerm: string) {
     console.log(`Search for ${searchTerm}`);
   }
@@ -12,7 +12,11 @@ class Layout extends Component {
     return (
       <>
         <Header />
-        {/* <SearchBar onSubmit={this.handleSearchSubmit} /> */}
+        <main className="page">
+          <Section pageClassName="page" selfClassName="search">
+            <SearchBar parentClassName="search" onSubmit={this.handleSearchSubmit} />
+          </Section>
+        </main>
       </>
     );
   }
