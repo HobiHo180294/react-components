@@ -1,0 +1,14 @@
+.page {
+  &__catalog {
+    padding: 50px 0 70px;
+  }
+}
+
+.catalog {
+  &__books {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    column-gap: 57px;
+    row-gap: 57px;
+  }
+}
