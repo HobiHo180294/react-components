@@ -3,7 +3,6 @@ import './SearchBar.scss';
 
 interface ISearchBarProps {
   parentClassName?: string;
-  onSubmit: (searchTerm: string) => void;
 }
 
 interface ISearchBarState {
@@ -24,7 +23,6 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.props.onSubmit(this.state.searchTerm);
   }
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {

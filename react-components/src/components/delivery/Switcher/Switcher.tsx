@@ -12,14 +12,6 @@ interface ISwitcherProps {
 export class Switcher extends Component<ISwitcherProps> {
   constructor(props: ISwitcherProps) {
     super(props);
-    this.handleRadioChange = this.handleRadioChange.bind(this);
-  }
-
-  handleRadioChange() {
-    const radio1Value = this.props.agreeRadioRef.current?.value;
-    const radio2Value = this.props.refuseRadioRef.current?.value;
-    const selectedValue = this.props.refuseRadioRef.current?.checked ? radio1Value : radio2Value;
-    console.log('Selected value:', selectedValue);
   }
 
   render() {
@@ -32,7 +24,6 @@ export class Switcher extends Component<ISwitcherProps> {
           value={this.props.values[0]}
           ref={this.props.agreeRadioRef}
           checked
-          onChange={this.handleRadioChange}
           className={styles.radio}
         />
         <label htmlFor={this.props.ids[0]} className={styles.label}>
@@ -44,7 +35,6 @@ export class Switcher extends Component<ISwitcherProps> {
           name={this.props.name}
           value={this.props.values[1]}
           ref={this.props.refuseRadioRef}
-          onChange={this.handleRadioChange}
           className={styles.radio}
         />
         <label htmlFor={this.props.ids[1]} className={styles.label}>
