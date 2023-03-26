@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './BookItem.scss';
 
 interface IBookItemProps {
@@ -22,7 +22,7 @@ const buttons = [
   { text: 'Add to bag', className: 'book-buttons__buy' },
 ];
 
-class BookItem extends React.Component<IBookItemProps> {
+class BookItem extends Component<IBookItemProps> {
   render() {
     const { parentClassName, title, imageLink, author, price, description } = this.props;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './SearchBar.scss';
 
 interface ISearchBarProps {
@@ -9,7 +9,7 @@ interface ISearchBarState {
   searchTerm: string;
 }
 
-class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
+class SearchBar extends Component<ISearchBarProps, ISearchBarState> {
   constructor(props: ISearchBarProps) {
     super(props);
 

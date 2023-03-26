@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BookItem, IBookItemProps } from './BookItem';
 import './BookCatalog.scss';
 
@@ -34,7 +34,7 @@ const renderBookItems = (
     />
   ));
 
-class BookCatalog extends React.Component<IBookCatalogProps, IBookCatalogState> {
+class BookCatalog extends Component<IBookCatalogProps, IBookCatalogState> {
   constructor(props: IBookCatalogProps) {
     super(props);
     this.state = {

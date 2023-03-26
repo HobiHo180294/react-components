@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'normalize.css';
 import './styles/global.scss';
@@ -8,7 +8,7 @@ import AboutPage from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import DeliveryPage from './components/pages/DeliveryPage';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <BrowserRouter>

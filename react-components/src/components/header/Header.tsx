@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import NavMenu from '../nav-menu/NavMenu';
 import './Header.scss';
 
-class Header extends React.Component {
+class Header extends Component {
   render() {
     return (
       <header className="header">

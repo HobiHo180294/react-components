@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 interface ISectionProps {
   pageClassName: string;
   selfClassName: string;
 }
 
-class Section extends React.Component<ISectionProps> {
+class Section extends Component<ISectionProps> {
   render() {
     const { pageClassName, selfClassName, children } = this.props;
 

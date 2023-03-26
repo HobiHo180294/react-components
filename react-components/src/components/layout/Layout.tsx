@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Header from '../header/Header';
 import { Outlet } from 'react-router-dom';
 
-class Layout extends React.Component {
+class Layout extends Component {
   render() {
     return (
       <>
