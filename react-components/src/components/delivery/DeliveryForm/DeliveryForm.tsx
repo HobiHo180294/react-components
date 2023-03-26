@@ -19,7 +19,7 @@ export interface IDeliveryFormState {
   deliveryDate: string;
   country: string;
   state: string;
-  isAgree: boolean;
+  agreePersonalData: boolean;
   needExtraPresents: boolean;
   gender: string;
   notifications: string;
@@ -57,7 +57,7 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       deliveryDate: '',
       country: '',
       state: '',
-      isAgree: false,
+      agreePersonalData: false,
       needExtraPresents: false,
       gender: '',
       notifications: '',
@@ -77,7 +77,7 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       deliveryDate: this.deliveryDateRef.current?.value ?? '',
       country: this.countriesInputRef.current?.value ?? '',
       state: this.statesListRef.current?.value ?? '',
-      isAgree: this.agreeCheckboxRef.current?.checked ?? false,
+      agreePersonalData: this.agreeCheckboxRef.current?.checked ?? false,
       needExtraPresents: this.extraCheckboxRef.current?.checked ?? false,
       gender: document.querySelector<HTMLInputElement>('input[name="gender"]:checked')?.value ?? '',
       notifications:
@@ -90,6 +90,8 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       ...prevState,
       formDataList: [...prevState.formDataList, formData],
     }));
+
+    if (this.formRef.current) this.formRef.current.reset();
   };
 
   render() {
