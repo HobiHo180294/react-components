@@ -14,8 +14,13 @@ class NavMenu extends Component<INavMenuProps> {
     return (
       <nav className={`${bemClassName} ${parentClassName}`}>
         <ul className={`${parentClassName}__list`}>
-          <NavMenuItem parentClassName={parentClassName} pathName="/main" routeTitle="Main" />
+          <NavMenuItem parentClassName={parentClassName} pathName="/" routeTitle="Main" />
           <NavMenuItem parentClassName={parentClassName} pathName="/about" routeTitle="About Us" />
+          <NavMenuItem
+            parentClassName={parentClassName}
+            pathName="/delivery"
+            routeTitle="Contact Form"
+          />
         </ul>
       </nav>
     );
