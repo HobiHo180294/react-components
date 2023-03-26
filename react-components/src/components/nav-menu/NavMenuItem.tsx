@@ -29,5 +29,3 @@ class NavMenuItem extends Component<INavItemProps> {
 }
 
 export default NavMenuItem;
-
-// `${parentClassName}__link $`
