@@ -1,0 +1,79 @@
+.book-item {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+
+  &__cover {
+    margin: 0;
+    background-color: #333;
+    font-family: 'Libre Baskerville', serif;
+    color: #fff;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    text-align: justify;
+  }
+
+  > * {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.book-cover {
+  &__pic {
+    max-width: 100%;
+  }
+
+  &__characteristics {
+    display: flex;
+    padding: 20px 10px;
+    justify-content: space-between;
+  }
+}
+
+.book-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+
+  &__more {
+    background-color: #2f2f2f;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #212121;
+    }
+  }
+
+  &__buy {
+    background-color: #0099ff;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #007acc;
+    }
+  }
+}
