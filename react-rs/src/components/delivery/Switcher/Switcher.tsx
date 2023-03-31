@@ -23,8 +23,9 @@ export class Switcher extends Component<ISwitcherProps> {
           name={this.props.name}
           value={this.props.values[0]}
           ref={this.props.agreeRadioRef}
-          checked
+          checked={true}
           className={styles.radio}
+          onChange={() => {}}
         />
         <label htmlFor={this.props.ids[0]} className={styles.label}>
           {this.props.values[0]}

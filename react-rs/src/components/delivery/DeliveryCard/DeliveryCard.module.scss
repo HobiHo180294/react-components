@@ -24,12 +24,20 @@
 
   &__item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-  }
-
-  &__key {
-    font-weight: bold;
     margin-right: 8px;
   }
+
+  &__value {
+    color: inherit;
+    background-color: transparent;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }

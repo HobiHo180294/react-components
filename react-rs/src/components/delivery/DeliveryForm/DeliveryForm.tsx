@@ -9,6 +9,30 @@ import { DeliveryCard } from '../DeliveryCard/DeliveryCard';
 import { Switcher } from '../Switcher/Switcher';
 import styles from './DeliveryForm.module.scss';
 
+const validateFullname = (fullNameVal: string): boolean => {
+  const fullNameRegex = /^[A-Z][a-z]* [A-Z][a-z]*$/;
+  return fullNameRegex.test(fullNameVal);
+};
+
+const validateEmptyFields = (formElements: HTMLFormControlsCollection): boolean => {
+  let isValidate = true;
+  for (let i = 0; i < formElements.length; i++) {
+    const element = formElements[i];
+    const elementType = (element as HTMLElement).tagName.toLowerCase();
+
+    switch (elementType) {
+      case 'input': {
+        if ((element as HTMLInputElement).type === 'checkbox')
+          if (!(element as HTMLInputElement).checked) isValidate = false;
+          else if ((element as HTMLInputElement).value.trim() === '') isValidate = false;
+        break;
+      }
+    }
+  }
+
+  return isValidate;
+};
+
 const countryOptions = ['Ukraine', 'Poland', 'Germany', 'Estonia', 'USA'];
 const stateOptions = ['Kyiv', 'Warsaw', 'Berlin', 'Tallinn', 'Washington'];
 
@@ -23,7 +47,7 @@ export interface IDeliveryFormState {
   needExtraPresents: boolean;
   gender: string;
   notifications: string;
-  avatar: FileList | null;
+  avatar: File | null;
 }
 
 interface IDeliveryFormStateWithSubmit extends IDeliveryFormState {
@@ -70,6 +94,8 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const avatarImage = this.fileRef.current?.files?.[0] || null;
+
     const formData: IDeliveryFormState = {
       fullName: this.fullNameRef.current?.value ?? '',
       zipCode: this.zipCodeRef.current?.value ?? '',
@@ -83,15 +109,37 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       notifications:
         document.querySelector<HTMLInputElement>('input[name="notifications"]:checked')?.value ??
         '',
-      avatar: this.fileRef.current?.files ?? null,
+      avatar: avatarImage ?? null,
     };
+
+    if (this.formRef.current) {
+      const fullName = formData.fullName;
+      const formElements = this.formRef.current?.elements;
+
+      if (formElements) {
+        if (!validateFullname(fullName)) {
+          alert(
+            'Please enter your full name (name and surname) with each word starting with a capital letter!'
+          );
+          return;
+        }
+
+        if (!validateEmptyFields(formElements)) {
+          alert('Please fill in all fields!');
+          return;
+        }
+
+        if (validateFullname(fullName) && validateEmptyFields(formElements)) {
+          this.formRef.current?.reset();
+          alert('Your data has been saved!');
+        }
+      }
+    }
 
     this.setState((prevState) => ({
       ...prevState,
       formDataList: [...prevState.formDataList, formData],
     }));
-
-    if (this.formRef.current) this.formRef.current.reset();
   };
 
   render() {
