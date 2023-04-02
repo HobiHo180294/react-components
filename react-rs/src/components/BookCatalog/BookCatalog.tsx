@@ -8,14 +8,18 @@ interface IBookCatalogProps {
   parentClassName?: string;
 }
 
+export async function fetchBooks(path: string): Promise<IBookItemProps[]> {
+  const response = await fetch(path);
+  const booksData = await response.json();
+  return booksData;
+}
+
 export const BookCatalog: FC<IBookCatalogProps> = ({ parentClassName }) => {
   const [books, setBooks] = useState<IBookItemProps[]>([]);
 
   useEffect(() => {
-    const fetchBooksData = async () => {
-      const response = await fetch(BOOKS_DATA_STORAGE_PATH);
-      const booksData = await response.json();
-
+    async function fetchData() {
+      const booksData = await fetchBooks(BOOKS_DATA_STORAGE_PATH);
       const books = booksData.map((book: IBookItemProps) => ({
         author: book.author,
         imageLink: book.imageLink,
@@ -25,9 +29,9 @@ export const BookCatalog: FC<IBookCatalogProps> = ({ parentClassName }) => {
       }));
 
       setBooks(books);
-    };
+    }
 
-    fetchBooksData();
+    fetchData();
   }, []);
 
   return (
