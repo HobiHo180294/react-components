@@ -6,20 +6,16 @@ interface ICardProps {
   formData: IDeliveryFormState;
 }
 
-const generateFormFields = (formData: IDeliveryFormState) => {
-  return Object.entries(formData).map(([key, value]) => {
+const generateCardData = (formData: IDeliveryFormState) =>
+  Object.entries(formData).map(([key, value]) => {
     let displayValue;
-    if (typeof value === 'boolean') {
-      displayValue = value ? 'Yes' : 'No';
-    } else if (Array.isArray(value) && value[0] && value[0].name) {
-      displayValue = value[0].name;
-    } else if (key === 'avatar' && value instanceof File) {
+    if (typeof value === 'boolean') displayValue = value ? 'Yes' : 'No';
+    else if (Array.isArray(value) && value[0] && value[0].name) displayValue = value[0].name;
+    else if (key === 'avatar' && value instanceof File)
       displayValue = (
         <img className={styles.avatar} src={URL.createObjectURL(value)} alt="Avatar" />
       );
-    } else {
-      displayValue = value;
-    }
+    else displayValue = value;
 
     return (
       <li className={styles.deliveryCard__item} key={key}>
@@ -27,7 +23,6 @@ const generateFormFields = (formData: IDeliveryFormState) => {
       </li>
     );
   });
-};
 
 export class DeliveryCard extends Component<ICardProps> {
   render() {
@@ -36,7 +31,7 @@ export class DeliveryCard extends Component<ICardProps> {
     return (
       <div className={styles.deliveryCard}>
         <h2 className={styles.deliveryCard__title}>Delivery Information</h2>
-        <ul className={styles.deliveryCard__list}>{generateFormFields(formData)}</ul>
+        <ul className={styles.deliveryCard__list}>{generateCardData(formData)}</ul>
       </div>
     );
   }

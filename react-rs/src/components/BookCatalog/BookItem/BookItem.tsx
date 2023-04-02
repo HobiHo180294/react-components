@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './BookItem.scss';
 
-interface IBookItemProps {
+export interface IBookItemProps {
   parentClassName?: string;
   author: string;
   imageLink: string;
@@ -22,7 +22,7 @@ const buttons = [
   { text: 'Add to bag', className: 'book-buttons__buy' },
 ];
 
-class BookItem extends Component<IBookItemProps> {
+export class BookItem extends Component<IBookItemProps> {
   render() {
     const { parentClassName, title, imageLink, author, price, description } = this.props;
 
@@ -48,5 +48,3 @@ class BookItem extends Component<IBookItemProps> {
     );
   }
 }
-
-export { BookItem, IBookItemProps };

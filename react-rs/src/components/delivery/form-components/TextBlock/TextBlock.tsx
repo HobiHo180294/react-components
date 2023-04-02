@@ -4,7 +4,7 @@ import styles from './TextBlock.module.scss';
 interface ITextBlockProps {
   id: string;
   label: string;
-  reference?: RefObject<HTMLInputElement>;
+  reference: RefObject<HTMLInputElement>;
 }
 
 export class TextBlock extends Component<ITextBlockProps> {

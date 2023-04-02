@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BookItem, IBookItemProps } from './BookItem';
+import { BookItem, IBookItemProps } from './BookItem/BookItem';
 import './BookCatalog.scss';
 
-const BOOKS_DATA_STORAGE_PATH = './public/data/books.json';
+export const BOOKS_DATA_STORAGE_PATH = './public/data/books.json';
 
 interface IBookCatalogProps {
   parentClassName?: string;
@@ -12,19 +12,19 @@ interface IBookCatalogState {
   books: IBookItemProps[];
 }
 
-async function fetchBooks(path: string): Promise<IBookItemProps[]> {
+export async function fetchBooks(path: string): Promise<IBookItemProps[]> {
   const response = await fetch(path);
   const booksData = await response.json();
   return booksData;
 }
 
-const renderBookItems = (
+export const renderBookItems = (
   books: IBookItemProps[],
   parentClassName: string | undefined
 ): JSX.Element[] =>
-  books.map((book, index) => (
+  books.map((book) => (
     <BookItem
-      key={index}
+      key={book.title}
       parentClassName={parentClassName}
       author={book.author}
       imageLink={book.imageLink}
@@ -34,7 +34,7 @@ const renderBookItems = (
     />
   ));
 
-class BookCatalog extends Component<IBookCatalogProps, IBookCatalogState> {
+export class BookCatalog extends Component<IBookCatalogProps, IBookCatalogState> {
   constructor(props: IBookCatalogProps) {
     super(props);
     this.state = {
@@ -67,5 +67,3 @@ class BookCatalog extends Component<IBookCatalogProps, IBookCatalogState> {
     );
   }
 }
-
-export default BookCatalog;

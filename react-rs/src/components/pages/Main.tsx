@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Section from '../../components/sections/base/Section';
-import BookCatalog from '../../components/sections/book-catalog/BookCatalog';
-import SearchBar from '../../components/sections/search-bar/SearchBar';
+import Section from '../utils/section/Section';
+import { BookCatalog } from '../BookCatalog/BookCatalog';
+import SearchBar from '../SearchBar/SearchBar';
 
 class MainPage extends Component {
   render() {

@@ -1,12 +1,12 @@
 import React, { Component, createRef, FormEvent, RefObject } from 'react';
-import { CheckBox } from '../blocks/CheckBox/CheckBox';
-import { DateBlock } from '../blocks/DateBlock/DateBlock';
-import { DropDown } from '../blocks/DropDown/DropDown';
-import { FileBlock } from '../blocks/FileBlock/FileBlock';
-import { SelectBlock } from '../blocks/SelectBlock/SelectBlock';
-import { TextBlock } from '../blocks/TextBlock/TextBlock';
+import { CheckBox } from '../form-components/CheckBox/CheckBox';
+import { DateBlock } from '../form-components/DateBlock/DateBlock';
+import { DropDown } from '../form-components/DropDown/DropDown';
+import { FileBlock } from '../form-components/FileBlock/FileBlock';
+import { SelectBlock } from '../form-components/SelectBlock/SelectBlock';
+import { TextBlock } from '../form-components/TextBlock/TextBlock';
 import { DeliveryCard } from '../DeliveryCard/DeliveryCard';
-import { Switcher } from '../Switcher/Switcher';
+import { Switcher } from '../form-components/Switcher/Switcher';
 import styles from './DeliveryForm.module.scss';
 
 const validateFullname = (fullNameVal: string): boolean => {
@@ -97,19 +97,21 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
     const avatarImage = this.fileRef.current?.files?.[0] || null;
 
     const formData: IDeliveryFormState = {
-      fullName: this.fullNameRef.current?.value ?? '',
-      zipCode: this.zipCodeRef.current?.value ?? '',
-      birthDate: this.birthDateRef.current?.value ?? '',
-      deliveryDate: this.deliveryDateRef.current?.value ?? '',
-      country: this.countriesInputRef.current?.value ?? '',
-      state: this.statesListRef.current?.value ?? '',
-      agreePersonalData: this.agreeCheckboxRef.current?.checked ?? false,
-      needExtraPresents: this.extraCheckboxRef.current?.checked ?? false,
-      gender: document.querySelector<HTMLInputElement>('input[name="gender"]:checked')?.value ?? '',
+      fullName: this.fullNameRef.current?.value ?? this.state.fullName,
+      zipCode: this.zipCodeRef.current?.value ?? this.state.zipCode,
+      birthDate: this.birthDateRef.current?.value ?? this.state.birthDate,
+      deliveryDate: this.deliveryDateRef.current?.value ?? this.state.deliveryDate,
+      country: this.countriesInputRef.current?.value ?? this.state.country,
+      state: this.statesListRef.current?.value ?? this.state.state,
+      agreePersonalData: this.agreeCheckboxRef.current?.checked ?? this.state.agreePersonalData,
+      needExtraPresents: this.extraCheckboxRef.current?.checked ?? this.state.needExtraPresents,
+      gender:
+        document.querySelector<HTMLInputElement>('input[name="gender"]:checked')?.value ??
+        this.state.gender,
       notifications:
         document.querySelector<HTMLInputElement>('input[name="notifications"]:checked')?.value ??
-        '',
-      avatar: avatarImage ?? null,
+        this.state.notifications,
+      avatar: avatarImage ?? this.state.avatar,
     };
 
     if (this.formRef.current) {
