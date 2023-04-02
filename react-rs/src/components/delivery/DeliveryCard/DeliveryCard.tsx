@@ -10,7 +10,6 @@ const generateCardData = (formData: IDeliveryFormState) =>
   Object.entries(formData).map(([key, value]) => {
     let displayValue;
     if (typeof value === 'boolean') displayValue = value ? 'Yes' : 'No';
-    else if (Array.isArray(value) && value[0] && value[0].name) displayValue = value[0].name;
     else if (key === 'avatar' && value instanceof File)
       displayValue = (
         <img className={styles.avatar} src={URL.createObjectURL(value)} alt="Avatar" />

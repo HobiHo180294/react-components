@@ -9,12 +9,12 @@ import { DeliveryCard } from '../DeliveryCard/DeliveryCard';
 import { Switcher } from '../form-components/Switcher/Switcher';
 import styles from './DeliveryForm.module.scss';
 
-const validateFullname = (fullNameVal: string): boolean => {
+export const validateFullname = (fullNameVal: string): boolean => {
   const fullNameRegex = /^[A-Z][a-z]* [A-Z][a-z]*$/;
   return fullNameRegex.test(fullNameVal);
 };
 
-const validateEmptyFields = (formElements: HTMLFormControlsCollection): boolean => {
+export const validateEmptyFields = (formElements: HTMLFormControlsCollection): boolean => {
   let isValidate = true;
   for (let i = 0; i < formElements.length; i++) {
     const element = formElements[i];
@@ -22,9 +22,9 @@ const validateEmptyFields = (formElements: HTMLFormControlsCollection): boolean 
 
     switch (elementType) {
       case 'input': {
-        if ((element as HTMLInputElement).type === 'checkbox')
+        if ((element as HTMLInputElement).type === 'checkbox') {
           if (!(element as HTMLInputElement).checked) isValidate = false;
-          else if ((element as HTMLInputElement).value.trim() === '') isValidate = false;
+        } else if ((element as HTMLInputElement).value.trim() === '') isValidate = false;
         break;
       }
     }
@@ -55,7 +55,7 @@ interface IDeliveryFormStateWithSubmit extends IDeliveryFormState {
   formDataList: IDeliveryFormState[] | [];
 }
 
-export class DeliveryForm extends Component<Record<string, never>, IDeliveryFormStateWithSubmit> {
+export class DeliveryForm extends Component<Record<string, unknown>, IDeliveryFormStateWithSubmit> {
   private formRef: React.RefObject<HTMLFormElement> = createRef();
   private fieldsetRef: RefObject<HTMLFieldSetElement> = createRef();
   private fullNameRef: RefObject<HTMLInputElement> = createRef();
@@ -67,12 +67,16 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
   private statesListRef: RefObject<HTMLSelectElement> = createRef();
   private agreeCheckboxRef: RefObject<HTMLInputElement> = createRef();
   private extraCheckboxRef: RefObject<HTMLInputElement> = createRef();
+  private maleRadioRef: RefObject<HTMLInputElement> = createRef();
+  private femaleRadioRef: RefObject<HTMLInputElement> = createRef();
   private agreeRadioRef: RefObject<HTMLInputElement> = createRef();
   private refuseRadioRef: RefObject<HTMLInputElement> = createRef();
   private fileRef: RefObject<HTMLInputElement> = createRef();
   private buttonRef: RefObject<HTMLButtonElement> = createRef();
+  private switchGenderRef: RefObject<Switcher> = createRef();
+  private switchNotificationRef: RefObject<Switcher> = createRef();
 
-  constructor(props: Record<string, never>) {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this.state = {
       fullName: '',
@@ -83,8 +87,8 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       state: '',
       agreePersonalData: false,
       needExtraPresents: false,
-      gender: '',
-      notifications: '',
+      gender: 'male',
+      notifications: 'I want to receive notifications about promo, sales, etc.',
       avatar: null,
       submitted: false,
       formDataList: [],
@@ -106,10 +110,10 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
       agreePersonalData: this.agreeCheckboxRef.current?.checked ?? this.state.agreePersonalData,
       needExtraPresents: this.extraCheckboxRef.current?.checked ?? this.state.needExtraPresents,
       gender:
-        document.querySelector<HTMLInputElement>('input[name="gender"]:checked')?.value ??
-        this.state.gender,
+        this.maleRadioRef.current?.value || this.femaleRadioRef.current?.value || this.state.gender,
       notifications:
-        document.querySelector<HTMLInputElement>('input[name="notifications"]:checked')?.value ??
+        this.agreeRadioRef.current?.value ||
+        this.refuseRadioRef.current?.value ||
         this.state.notifications,
       avatar: avatarImage ?? this.state.avatar,
     };
@@ -133,6 +137,9 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
 
         if (validateFullname(fullName) && validateEmptyFields(formElements)) {
           this.formRef.current?.reset();
+          this.fileRef.current!.value = '';
+          this.switchGenderRef.current?.reset();
+          this.switchNotificationRef.current?.reset();
           alert('Your data has been saved!');
         }
       }
@@ -185,13 +192,15 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
             />
 
             <Switcher
+              ref={this.switchGenderRef}
               ids={['maleID', 'femaleID']}
               name={'gender'}
               values={['male', 'female']}
-              agreeRadioRef={this.agreeRadioRef}
-              refuseRadioRef={this.refuseRadioRef}
+              agreeRadioRef={this.maleRadioRef}
+              refuseRadioRef={this.femaleRadioRef}
             />
             <Switcher
+              ref={this.switchNotificationRef}
               ids={['notificationsAgree', 'notificationsDecline']}
               name={'notifications'}
               values={[
@@ -223,5 +232,3 @@ export class DeliveryForm extends Component<Record<string, never>, IDeliveryForm
     );
   }
 }
-
-export default DeliveryForm;

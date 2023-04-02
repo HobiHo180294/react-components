@@ -28,14 +28,25 @@ function handleRadioCheck(radioCheckObject: IHandleRadioCheck): void {
 }
 
 export class Switcher extends Component<ISwitcherProps, ISwitcherState> {
+  private defaultState: ISwitcherState;
+
   constructor(props: ISwitcherProps) {
     super(props);
 
-    this.state = {
+    this.defaultState = {
       selectedRadioBtn: this.props.values[0],
     };
 
+    this.state = {
+      ...this.defaultState,
+    };
+
     this.onValueChange = this.onValueChange.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset(): void {
+    this.setState({ ...this.defaultState });
   }
 
   onValueChange(event: ChangeEvent<HTMLInputElement>): void {

@@ -29,7 +29,7 @@ describe('FileBlock component', () => {
 
     const input = getByLabelText('Select Image');
 
-    user.upload(input, testImage);
+    await user.upload(input, testImage);
 
     await waitFor(() => {
       expect(fileInputRef.current?.files?.length).toBe(1);
