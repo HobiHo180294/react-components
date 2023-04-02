@@ -1,58 +1,39 @@
-import React, { Component } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import './SearchBar.scss';
 
 interface ISearchBarProps {
   parentClassName?: string;
 }
 
-interface ISearchBarState {
-  searchTerm: string;
-}
+export const SearchBar: FC<ISearchBarProps> = ({ parentClassName }) => {
+  const [searchTerm, setSearchTerm] = useState<string>(localStorage.getItem('searchTerm') || '');
 
-class SearchBar extends Component<ISearchBarProps, ISearchBarState> {
-  constructor(props: ISearchBarProps) {
-    super(props);
+  useEffect(() => {
+    localStorage.setItem('searchTerm', searchTerm);
+  }, [searchTerm]);
 
-    this.state = {
-      searchTerm: localStorage.getItem('searchTerm') || '',
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  }
+  };
 
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ searchTerm: event.target.value });
-  }
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
-  componentWillUnmount() {
-    localStorage.setItem('searchTerm', this.state.searchTerm);
-  }
-
-  render() {
-    const { parentClassName } = this.props;
-
-    return (
-      <form onSubmit={this.handleSubmit} className={`${parentClassName}__bar search-bar`}>
-        <fieldset className="search-bar__group">
-          <input
-            type="text"
-            value={this.state.searchTerm}
-            placeholder="Search..."
-            onChange={this.handleInputChange}
-            className="search-bar__input"
-          />
-          <button type="submit" className="search-bar__button">
-            Search
-          </button>
-        </fieldset>
-      </form>
-    );
-  }
-}
-
-export default SearchBar;
+  return (
+    <form onSubmit={handleSubmit} className={`${parentClassName}__bar search-bar`}>
+      <fieldset className="search-bar__group">
+        <input
+          type="text"
+          value={searchTerm}
+          placeholder="Search..."
+          onChange={handleInputChange}
+          className="search-bar__input"
+        />
+        <button type="submit" className="search-bar__button">
+          Search
+        </button>
+      </fieldset>
+    </form>
+  );
+};
