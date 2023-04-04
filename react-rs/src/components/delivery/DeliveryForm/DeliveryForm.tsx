@@ -236,7 +236,7 @@
 // }
 
 // ! NEW IMPLEMENTATION
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TextBlock } from '../form-components/TextBlock/TextBlock';
 import styles from './DeliveryForm.module.scss';
@@ -246,9 +246,12 @@ import { SelectBlock } from '../form-components/SelectBlock/SelectBlock';
 import { CheckBox } from '../form-components/CheckBox/CheckBox';
 import { ISwitcher, Switcher } from '../form-components/Switcher/Switcher';
 import { FileBlock } from '../form-components/FileBlock/FileBlock';
+import { IDeliveryFormData } from './DeliveryForm.service';
+import { DeliveryCard } from '../DeliveryCard/DeliveryCard';
 
 export const DeliveryForm = () => {
   const { handleSubmit } = useForm();
+  const [formData, setFormData] = useState<null | IDeliveryFormData>(null);
 
   // * REFS
   const formRef = useRef<HTMLFormElement>(null);
@@ -279,8 +282,33 @@ export const DeliveryForm = () => {
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  const getData = (): IDeliveryFormData => {
+    const avatarImage = fileRef.current?.files?.[0] || null;
+
+    return {
+      fullName: fullNameRef.current?.value ?? '',
+      zipCode: zipCodeRef.current?.value ?? '',
+      birthDate: birthDateRef.current?.value ?? '',
+      deliveryDate: deliveryDateRef.current?.value ?? '',
+      country: countriesInputRef.current?.value ?? '',
+      state: statesListRef.current?.value ?? '',
+      agreePersonalData: agreeCheckboxRef.current?.checked ?? false,
+      needExtraPresents: extraCheckboxRef.current?.checked ?? false,
+      gender: maleRadioRef.current?.value || femaleRadioRef.current?.value || 'male',
+      notifications:
+        agreeRadioRef.current?.value ||
+        refuseRadioRef.current?.value ||
+        'I want to receive notifications about promo, sales, etc.',
+      avatar: avatarImage,
+    };
+  };
+
   const onSubmit = () => {
-    console.log(fullNameRef.current?.value);
+    const formData = getData();
+
+    console.log(formData);
+
+    setFormData(formData);
   };
 
   // * MOCK DATA
@@ -346,26 +374,7 @@ export const DeliveryForm = () => {
           Submit
         </button>
       </fieldset>
+      {formData && <DeliveryCard formData={formData} />}
     </form>
   );
 };
-
-//   private formRef: React.RefObject<HTMLFormElement> = createRef();
-//   private fieldsetRef: RefObject<HTMLFieldSetElement> = createRef();
-//   private fullNameRef: RefObject<HTMLInputElement> = createRef();
-//   private zipCodeRef: RefObject<HTMLInputElement> = createRef();
-//   private birthDateRef: RefObject<HTMLInputElement> = createRef();
-//   private deliveryDateRef: RefObject<HTMLInputElement> = createRef();
-//   private countriesInputRef: RefObject<HTMLInputElement> = createRef();
-//   private countriesListRef: RefObject<HTMLDataListElement> = createRef();
-//   private statesListRef: RefObject<HTMLSelectElement> = createRef();
-//   private agreeCheckboxRef: RefObject<HTMLInputElement> = createRef();
-//   private extraCheckboxRef: RefObject<HTMLInputElement> = createRef();
-//   private maleRadioRef: RefObject<HTMLInputElement> = createRef();
-//   private femaleRadioRef: RefObject<HTMLInputElement> = createRef();
-//   private agreeRadioRef: RefObject<HTMLInputElement> = createRef();
-//   private refuseRadioRef: RefObject<HTMLInputElement> = createRef();
-//   private fileRef: RefObject<HTMLInputElement> = createRef();
-//   private buttonRef: RefObject<HTMLButtonElement> = createRef();
-//   private switchGenderRef: RefObject<Switcher> = createRef();
-//   private switchNotificationRef: RefObject<Switcher> = createRef();
