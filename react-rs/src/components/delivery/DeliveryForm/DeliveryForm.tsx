@@ -14,7 +14,6 @@ import { validateEmptyFields, validateFullname } from './utils';
 
 export const DeliveryForm = () => {
   const { handleSubmit } = useForm();
-  // const [formData, setFormData] = useState<null | IDeliveryFormData>(null);
   const [formDataList, setFormDataList] = useState<IDeliveryFormData[]>([]);
 
   // * REFS
@@ -96,7 +95,6 @@ export const DeliveryForm = () => {
       }
     }
 
-    // setFormData(formData);
     setFormDataList((prevList) => [...prevList, formData]);
   };
 
