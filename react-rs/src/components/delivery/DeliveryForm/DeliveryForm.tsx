@@ -253,6 +253,7 @@ import { validateEmptyFields, validateFullname } from './utils';
 export const DeliveryForm = () => {
   const { handleSubmit } = useForm();
   const [formData, setFormData] = useState<null | IDeliveryFormData>(null);
+  const [formDataList, setFormDataList] = useState<IDeliveryFormData[]>([]);
 
   // * REFS
   const formRef = useRef<HTMLFormElement>(null);
@@ -334,6 +335,7 @@ export const DeliveryForm = () => {
     }
 
     setFormData(formData);
+    setFormDataList((prevList) => [...prevList, formData]);
   };
 
   // * MOCK DATA
@@ -399,7 +401,11 @@ export const DeliveryForm = () => {
           Submit
         </button>
       </fieldset>
-      {formData && <DeliveryCard formData={formData} />}
+      {formDataList.map((formData) => {
+        return (
+          <DeliveryCard key={`${formData.fullName} + ${formData.birthDate}`} formData={formData} />
+        );
+      })}
     </form>
   );
 };
