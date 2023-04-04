@@ -16,7 +16,6 @@ export const DeliveryForm = () => {
   const { handleSubmit } = useForm();
   const [formDataList, setFormDataList] = useState<IDeliveryFormData[]>([]);
 
-  // * REFS
   const formRef = useRef<HTMLFormElement>(null);
   const fieldsetRef = useRef<HTMLFieldSetElement>(null);
 
@@ -98,7 +97,6 @@ export const DeliveryForm = () => {
     setFormDataList((prevList) => [...prevList, formData]);
   };
 
-  // * MOCK DATA
   const countryOptions = ['Ukraine', 'Poland', 'Germany', 'Estonia', 'USA'];
   const stateOptions = ['Kyiv', 'Warsaw', 'Berlin', 'Tallinn', 'Washington'];
 
