@@ -305,9 +305,6 @@ export const DeliveryForm = () => {
 
   const onSubmit = () => {
     const formData = getData();
-
-    console.log(formData);
-
     setFormData(formData);
   };
 
