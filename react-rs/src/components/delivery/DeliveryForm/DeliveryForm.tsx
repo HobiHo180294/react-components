@@ -120,32 +120,32 @@
 //       avatar: avatarImage ?? this.state.avatar,
 //     };
 
-//     if (this.formRef.current) {
-//       const fullName = formData.fullName;
-//       const formElements = this.formRef.current?.elements;
+// if (this.formRef.current) {
+//   const fullName = formData.fullName;
+//   const formElements = this.formRef.current?.elements;
 
-//       if (formElements) {
-//         if (!validateFullname(fullName)) {
-//           alert(
-//             'Please enter your full name (name and surname) with each word starting with a capital letter!'
-//           );
-//           return;
-//         }
-
-//         if (!validateEmptyFields(formElements)) {
-//           alert('Please fill in all fields!');
-//           return;
-//         }
-
-//         if (validateFullname(fullName) && validateEmptyFields(formElements)) {
-//           this.formRef.current?.reset();
-//           this.fileRef.current!.value = '';
-//           this.switchGenderRef.current?.reset();
-//           this.switchNotificationRef.current?.reset();
-//           alert('Your data has been saved!');
-//         }
-//       }
+//   if (formElements) {
+//     if (!validateFullname(fullName)) {
+//       alert(
+//         'Please enter your full name (name and surname) with each word starting with a capital letter!'
+//       );
+//       return;
 //     }
+
+//     if (!validateEmptyFields(formElements)) {
+//       alert('Please fill in all fields!');
+//       return;
+//     }
+
+//     if (validateFullname(fullName) && validateEmptyFields(formElements)) {
+//       this.formRef.current?.reset();
+//       this.fileRef.current!.value = '';
+//       this.switchGenderRef.current?.reset();
+//       this.switchNotificationRef.current?.reset();
+//       alert('Your data has been saved!');
+//     }
+//   }
+// }
 
 //     this.setState((prevState) => ({
 //       ...prevState,
@@ -248,6 +248,7 @@ import { ISwitcher, Switcher } from '../form-components/Switcher/Switcher';
 import { FileBlock } from '../form-components/FileBlock/FileBlock';
 import { IDeliveryFormData } from './DeliveryForm.service';
 import { DeliveryCard } from '../DeliveryCard/DeliveryCard';
+import { validateEmptyFields, validateFullname } from './utils';
 
 export const DeliveryForm = () => {
   const { handleSubmit } = useForm();
@@ -294,10 +295,9 @@ export const DeliveryForm = () => {
       state: statesListRef.current?.value ?? '',
       agreePersonalData: agreeCheckboxRef.current?.checked ?? false,
       needExtraPresents: extraCheckboxRef.current?.checked ?? false,
-      gender: maleRadioRef.current?.value || femaleRadioRef.current?.value || 'male',
+      gender: switchGenderRef.current?.getCurrentValue() ?? 'male',
       notifications:
-        agreeRadioRef.current?.value ||
-        refuseRadioRef.current?.value ||
+        switchNotificationsRef.current?.getCurrentValue() ??
         'I want to receive notifications about promo, sales, etc.',
       avatar: avatarImage,
     };
@@ -305,6 +305,34 @@ export const DeliveryForm = () => {
 
   const onSubmit = () => {
     const formData = getData();
+
+    if (formRef.current) {
+      const fullName = formData.fullName;
+      const formElements = formRef.current.elements;
+
+      if (formElements) {
+        if (!validateFullname(fullName)) {
+          alert(
+            'Please enter your full name (name and surname) with each word starting with a capital letter!'
+          );
+          return;
+        }
+
+        if (!validateEmptyFields(formElements)) {
+          alert('Please fill in all fields!');
+          return;
+        }
+
+        if (validateFullname(fullName) && validateEmptyFields(formElements)) {
+          formRef.current?.reset();
+          fileRef.current!.value = '';
+          switchGenderRef.current?.reset();
+          switchNotificationsRef.current?.reset();
+          alert('Your data has been saved!');
+        }
+      }
+    }
+
     setFormData(formData);
   };
 

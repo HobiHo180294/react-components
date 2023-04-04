@@ -131,6 +131,7 @@ export interface ISwitcher {
     unselectedRef: React.RefObject<HTMLInputElement>;
   }) => void;
   reset: () => void;
+  getCurrentValue: () => string | null;
 }
 
 export const Switcher = forwardRef<ISwitcher, ISwitcherProps>((props, ref) => {
@@ -177,9 +178,15 @@ export const Switcher = forwardRef<ISwitcher, ISwitcherProps>((props, ref) => {
     setSelectedRadioBtn(props.values[0]);
   };
 
+  const getCurrentValue = () =>
+    agreeRadioRef.current?.checked
+      ? agreeRadioRef.current?.value
+      : refuseRadioRef.current?.value || null;
+
   useImperativeHandle(ref, () => ({
     handleRadioCheck,
     reset,
+    getCurrentValue,
   }));
 
   return (
