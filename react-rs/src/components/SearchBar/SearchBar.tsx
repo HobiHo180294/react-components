@@ -1,12 +1,15 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchBar.scss';
 
 interface ISearchBarProps {
   parentClassName?: string;
 }
 
-export const SearchBar: FC<ISearchBarProps> = ({ parentClassName }) => {
-  const [searchTerm, setSearchTerm] = useState<string>(localStorage.getItem('searchTerm') || '');
+export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
+  const [searchTerm, setSearchTerm] = useState<string>(() => {
+    const storedTerm = localStorage.getItem('searchTerm');
+    return storedTerm !== null ? storedTerm : '';
+  });
 
   useEffect(() => {
     localStorage.setItem('searchTerm', searchTerm);

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookItem, IBookItemProps } from './BookItem/BookItem';
 import './BookCatalog.scss';
 
@@ -14,7 +14,7 @@ export async function fetchBooks(path: string): Promise<IBookItemProps[]> {
   return booksData;
 }
 
-export const BookCatalog: FC<IBookCatalogProps> = ({ parentClassName }) => {
+export const BookCatalog = ({ parentClassName }: IBookCatalogProps) => {
   const [books, setBooks] = useState<IBookItemProps[]>([]);
 
   useEffect(() => {
