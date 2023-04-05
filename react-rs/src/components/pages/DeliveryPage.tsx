@@ -1,10 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { DeliveryForm } from '../delivery/DeliveryForm/DeliveryForm';
 
-class DeliveryPage extends Component {
-  render() {
-    return <DeliveryForm />;
-  }
-}
-
-export default DeliveryPage;
+export const DeliveryPage = () => <DeliveryForm />;

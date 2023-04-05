@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './NavMenuItem.scss';
 
@@ -11,21 +11,15 @@ interface INavItemProps extends INavLinkProps {
   pathName: string;
 }
 
-class NavMenuItem extends Component<INavItemProps> {
-  render() {
-    const { parentClassName, pathName, routeTitle } = this.props;
+export const NavMenuItem = ({ parentClassName, pathName, routeTitle }: INavItemProps) => {
+  const setActiveLink = ({ isActive }: { isActive: boolean }): string =>
+    isActive ? `${parentClassName}__link _active-link` : `${parentClassName}__link`;
 
-    const setActiveLink = ({ isActive }: { isActive: boolean }): string =>
-      isActive ? `${parentClassName}__link _active-link` : `${parentClassName}__link`;
-
-    return (
-      <li className={`${parentClassName}__item`}>
-        <NavLink to={pathName} className={setActiveLink}>
-          {routeTitle}
-        </NavLink>
-      </li>
-    );
-  }
-}
-
-export default NavMenuItem;
+  return (
+    <li className={`${parentClassName}__item`}>
+      <NavLink to={pathName} className={setActiveLink}>
+        {routeTitle}
+      </NavLink>
+    </li>
+  );
+};

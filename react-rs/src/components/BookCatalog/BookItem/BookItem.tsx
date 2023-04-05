@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './BookItem.scss';
 
 export interface IBookItemProps {
@@ -10,14 +10,14 @@ export interface IBookItemProps {
   description: string;
 }
 
-export const BookItem: FC<IBookItemProps> = ({
+export const BookItem = ({
   parentClassName,
   title,
   imageLink,
   author,
   price,
   description,
-}) => {
+}: IBookItemProps) => {
   const buttons = [
     { text: 'Show more', className: 'book-buttons__more' },
     { text: 'Add to bag', className: 'book-buttons__buy' },
