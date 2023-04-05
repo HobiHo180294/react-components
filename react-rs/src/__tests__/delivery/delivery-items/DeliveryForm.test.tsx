@@ -1,17 +1,17 @@
 import React from 'react';
 import user from '@testing-library/user-event';
 import { render, fireEvent, waitFor } from '@testing-library/react';
+import { DeliveryForm } from 'components/delivery/DeliveryForm/DeliveryForm';
 import {
-  DeliveryForm,
-  validateFullname,
   validateEmptyFields,
-} from 'components/delivery/DeliveryForm/DeliveryForm';
+  validateFullname,
+} from '../../../components/delivery/DeliveryForm/utils';
 
 describe('DeliveryForm component', () => {
   it('should render all form fields', () => {
     const { getByLabelText } = render(<DeliveryForm />);
 
-    expect(getByLabelText('Full name:')).toBeInTheDocument();
+    expect(getByLabelText('Fullname:')).toBeInTheDocument();
     expect(getByLabelText('Zip-code:')).toBeInTheDocument();
     expect(getByLabelText('Birth date:')).toBeInTheDocument();
     expect(getByLabelText('Delivery date:')).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe('DeliveryForm component', () => {
 
     const { getByLabelText, getByRole } = render(<DeliveryForm />);
 
-    const fullNameInput = getByLabelText('Full name:') as HTMLInputElement;
+    const fullNameInput = getByLabelText('Fullname:') as HTMLInputElement;
     fireEvent.change(fullNameInput, { target: { value: 'John Doe' } });
     expect(fullNameInput.value).toBe('John Doe');
 
@@ -153,10 +153,3 @@ describe('empty fields validation', () => {
     expect(validateEmptyFields(mockForm.elements)).toBe(false);
   });
 });
-
-// const onChange = jest.fn();
-// fireEvent.change(avatarInput, {
-//   target: { files: [avatarImage] },
-// });
-
-// expect(onChange).toHaveBeenCalledWith(avatarImage);
