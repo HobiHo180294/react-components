@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './SearchBar.scss';
 
 interface ISearchBarProps {
@@ -6,32 +7,30 @@ interface ISearchBarProps {
 }
 
 export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useState<string>(() => {
-    const storedTerm = localStorage.getItem('searchTerm');
-    return storedTerm !== null ? storedTerm : '';
-  });
+  const { register } = useForm();
+  const [searchValue, setSearchValue] = useState<string | null>(null);
 
   useEffect(() => {
-    localStorage.setItem('searchTerm', searchTerm);
-  }, [searchTerm]);
+    if (searchValue !== null) localStorage.setItem('searchValue', JSON.stringify(searchValue));
+  }, [searchValue]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  useEffect(() => {
+    if (localStorage.getItem('searchValue'))
+      setSearchValue(JSON.parse(localStorage.getItem('searchValue') as string));
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit} className={`${parentClassName}__bar search-bar`}>
+    <form className={`${parentClassName}__bar search-bar`}>
       <fieldset className="search-bar__group">
         <input
-          type="text"
-          value={searchTerm}
+          type="search"
+          defaultValue={searchValue !== null ? searchValue : ''}
+          {...register('searchValue')}
           placeholder="Search..."
-          onChange={handleInputChange}
           className="search-bar__input"
+          onChange={(event) => {
+            setSearchValue(() => event.target.value);
+          }}
         />
         <button type="submit" className="search-bar__button">
           Search
@@ -40,3 +39,5 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
     </form>
   );
 };
+
+export default SearchBar;

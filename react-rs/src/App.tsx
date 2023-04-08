@@ -8,15 +8,17 @@ import { AboutPage } from './components/pages/About';
 import { NotFoundPage } from './components/pages/NotFoundPage';
 import { DeliveryPage } from './components/pages/DeliveryPage';
 
-export const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<MainPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/delivery" element={<DeliveryPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
-);
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/delivery" element={<DeliveryPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
