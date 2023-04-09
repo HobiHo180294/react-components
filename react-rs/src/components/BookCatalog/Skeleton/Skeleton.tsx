@@ -8,8 +8,8 @@ interface ISkeletonProps {
 export const Skeleton = ({ item }: ISkeletonProps): JSX.Element => (
   <>
     {[...Array(item).keys()].map((value) => (
-      <div key={`itemID: ${value}`} className={styles.pulseAnimation}>
-        <div className={styles.pulseAnimationChild}></div>
+      <div key={value} className={styles['pulse-animation']}>
+        <div className={styles['pulse-animation__trigger']}></div>
       </div>
     ))}
   </>

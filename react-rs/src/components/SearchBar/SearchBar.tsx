@@ -7,10 +7,10 @@ interface ISearchBarProps {
   parentClassName?: string;
 }
 
-export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
+export const SearchBar = ({ parentClassName }: ISearchBarProps): JSX.Element => {
   const { register, handleSubmit } = useForm();
   const [searchValue, setSearchValue] = useState<string | null>(null);
-  const { fetchData } = useContext(ImageContext);
+  const { fetchData, setSearchTitle } = useContext(ImageContext);
 
   useEffect(() => {
     if (searchValue !== null) localStorage.setItem('searchValue', JSON.stringify(searchValue));
@@ -23,11 +23,12 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
 
   const onSubmit = () => {
     fetchData?.(
-      `/search/photos?page=1&query=${searchValue}&client_id=${
+      `/search/photos?page=${Math.floor(Math.random() * 5) + 1}&query=${searchValue}&client_id=${
         import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY
       }`
     );
     setSearchValue('');
+    if (searchValue) setSearchTitle?.(searchValue);
   };
 
   return (
@@ -52,5 +53,3 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
 };
 
 export default SearchBar;
-
-// setSearchValue('');

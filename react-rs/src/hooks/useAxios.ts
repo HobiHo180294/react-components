@@ -2,6 +2,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ImageData } from '../services/ImageData';
 
+const setAxiosDefaults = (baseURL: string, timeout: number): void => {
+  axios.defaults.baseURL = baseURL;
+  axios.defaults.timeout = timeout;
+};
+
 interface IUseAxiosReturn {
   response: [] | ImageData[];
   isLoading: boolean;
@@ -9,12 +14,12 @@ interface IUseAxiosReturn {
   fetchData: (url: string) => Promise<void>;
 }
 
-export const useAxios = (param: string): IUseAxiosReturn => {
+export const useAxios = (endpoint: string): IUseAxiosReturn => {
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  axios.defaults.baseURL = 'https://api.unsplash.com';
+  setAxiosDefaults('https://api.unsplash.com', 5000);
 
   const fetchData = async (url: string): Promise<void> => {
     try {
@@ -29,8 +34,8 @@ export const useAxios = (param: string): IUseAxiosReturn => {
   };
 
   useEffect(() => {
-    fetchData(param);
-  }, [param]);
+    fetchData(endpoint);
+  }, [endpoint]);
 
   return {
     response,

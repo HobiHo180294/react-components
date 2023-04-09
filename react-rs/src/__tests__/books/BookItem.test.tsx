@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { BookItem, IBookItemProps } from '../../components/BookCatalog/BookItem/BookItem';
-import { fetchBooks } from '../../components/BookCatalog/BookCatalog';
+import { BookItem, IBookItemProps } from '../../components/BookCatalog/ImageCard/ImageCard';
+import { fetchBooks } from '../../components/BookCatalog/Gallery';
 
 jest.mock('../../components/BookCatalog/BookCatalog', () => ({
   fetchBooks: jest.fn(() =>

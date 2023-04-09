@@ -52,18 +52,14 @@
 
 import React from 'react';
 import { ImageData } from '../../../services/ImageData';
-import styles from './BookItem.module.scss';
+import styles from './ImageCard.module.scss';
 
-interface IBookItemProps {
+interface IImageCardProps {
   data: ImageData;
 }
 
-export const BookItem = ({ data }: IBookItemProps) => {
-  return (
-    <a href={data.urls.regular} target="_blank" rel="noreferrer">
-      <img className={styles.galleryImage} src={data.urls.small} alt={data.alt_description} />
-    </a>
-  );
-};
-
-export default BookItem;
+export const ImageCard = ({ data }: IImageCardProps) => (
+  <a href={data.urls.regular} target="_blank" rel="noreferrer">
+    <img className={styles['card__image']} src={data.urls.small} alt={data.alt_description} />
+  </a>
+);

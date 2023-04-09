@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { BookCatalog } from '../../components/BookCatalog/BookCatalog';
+import { BookCatalog } from '../../components/BookCatalog/Gallery';
 
 const mockBooksData = [
   {
