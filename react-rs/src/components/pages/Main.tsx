@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Section } from '../utils/section/Section';
-import { Gallery } from '../BookCatalog/Gallery';
+import { Gallery } from '../Gallery/Gallery';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { useAxios } from '../../hooks/useAxios';
 import { ImageContext } from '../../context/ImageContext';
