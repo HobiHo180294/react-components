@@ -45,7 +45,7 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps): JSX.Element => 
           }}
         />
         <button disabled={!searchValue} type="submit" className="search-bar__button">
-          {isLoading ? 'Loading...' : 'Search'}
+          {isLoading ? 'Progressing...' : 'Search'}
         </button>
       </fieldset>
     </form>
