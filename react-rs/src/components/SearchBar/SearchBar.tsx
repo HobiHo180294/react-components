@@ -10,7 +10,7 @@ interface ISearchBarProps {
 export const SearchBar = ({ parentClassName }: ISearchBarProps): JSX.Element => {
   const { register, handleSubmit } = useForm();
   const [searchValue, setSearchValue] = useState<string | null>(null);
-  const { fetchData, setSearchTitle } = useContext(ImageContext);
+  const { fetchData, setSearchTitle, isLoading } = useContext(ImageContext);
 
   useEffect(() => {
     if (searchValue !== null) localStorage.setItem('searchValue', JSON.stringify(searchValue));
@@ -45,7 +45,7 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps): JSX.Element => 
           }}
         />
         <button disabled={!searchValue} type="submit" className="search-bar__button">
-          Search
+          {isLoading ? 'Loading...' : 'Search'}
         </button>
       </fieldset>
     </form>

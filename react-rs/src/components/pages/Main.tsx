@@ -16,8 +16,6 @@ export const MainPage = () => {
     }&client_id=${import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY}`
   );
 
-  console.log('response:', response);
-
   const value = { response, isLoading, error, fetchData, searchTitle, setSearchTitle };
 
   return (
