@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,5 +17,5 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"]
   },
-  "include": ["./src/**/*", "styled.d.ts", "./jest-config.ts", "typings.d.ts"]
+  "include": ["./src/**/*", "./src/*.d.ts", "./jest-config.ts", "typings.d.ts", "src/vite-env.d.ts"]
 }

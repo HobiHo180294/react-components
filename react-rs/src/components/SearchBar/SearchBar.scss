@@ -48,5 +48,14 @@
     &:hover {
       background-color: #0069d9;
     }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+      background-color: #d8d8d8;
+      color: #a0a0a0;
+      border-color: #a0a0a0;
+    }
   }
 }

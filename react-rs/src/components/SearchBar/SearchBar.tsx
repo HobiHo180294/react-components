@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ImageContext } from '../../context/ImageContext';
 import './SearchBar.scss';
 
 interface ISearchBarProps {
@@ -7,8 +8,9 @@ interface ISearchBarProps {
 }
 
 export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
   const [searchValue, setSearchValue] = useState<string | null>(null);
+  const { fetchData } = useContext(ImageContext);
 
   useEffect(() => {
     if (searchValue !== null) localStorage.setItem('searchValue', JSON.stringify(searchValue));
@@ -19,12 +21,21 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
       setSearchValue(JSON.parse(localStorage.getItem('searchValue') as string));
   }, []);
 
+  const onSubmit = () => {
+    fetchData?.(
+      `/search/photos?page=1&query=${searchValue}&client_id=${
+        import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY
+      }`
+    );
+    setSearchValue('');
+  };
+
   return (
-    <form className={`${parentClassName}__bar search-bar`}>
+    <form onSubmit={handleSubmit(onSubmit)} className={`${parentClassName}__bar search-bar`}>
       <fieldset className="search-bar__group">
         <input
           type="search"
-          defaultValue={searchValue !== null ? searchValue : ''}
+          value={searchValue !== null ? searchValue : ''}
           {...register('searchValue')}
           placeholder="Search..."
           className="search-bar__input"
@@ -32,7 +43,7 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
             setSearchValue(() => event.target.value);
           }}
         />
-        <button type="submit" className="search-bar__button">
+        <button disabled={!searchValue} type="submit" className="search-bar__button">
           Search
         </button>
       </fieldset>
@@ -41,3 +52,5 @@ export const SearchBar = ({ parentClassName }: ISearchBarProps) => {
 };
 
 export default SearchBar;
+
+// setSearchValue('');
