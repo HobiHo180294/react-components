@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import style from './Modal.module.scss';
 
 interface IModalProps {
   isOpened: boolean;
@@ -7,9 +8,9 @@ interface IModalProps {
 
 export const Modal: FC<IModalProps> = ({ isOpened, onModalClose, children }) => {
   return (
-    <div className={`modal__wrapper ${isOpened ? 'open' : 'close'}`}>
-      <div className="modal__body">
-        <div className="modal__close" onClick={onModalClose}>
+    <div className={`${style.modal__wrapper} ${isOpened ? style.open : style.close}`}>
+      <div className={style['modal__body']}>
+        <div className={style['modal__close']} onClick={onModalClose}>
           ×
         </div>
         {children}

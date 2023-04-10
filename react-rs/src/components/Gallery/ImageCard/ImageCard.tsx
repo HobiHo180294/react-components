@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ImageData } from '../../../services/ImageData';
+import { ModalContext } from '../../../context/ModalContext';
+import { SelectedImageContext } from '../../../context/SelectedImageContext';
 import styles from './ImageCard.module.scss';
 
 interface IImageCardProps {
@@ -8,6 +10,8 @@ interface IImageCardProps {
 
 export const ImageCard = ({ data }: IImageCardProps) => {
   const [visible, setVisibility] = useState<boolean>(false);
+  const { setModalOpen } = useContext(ModalContext);
+  const { setImageData } = useContext(SelectedImageContext);
 
   const handleMouseEnter = (): void => {
     setVisibility(true);
@@ -15,6 +19,11 @@ export const ImageCard = ({ data }: IImageCardProps) => {
 
   const handleMouseLeave = (): void => {
     setVisibility(false);
+  };
+
+  const showModal = (): void => {
+    setImageData(data);
+    setModalOpen(true);
   };
 
   return (
@@ -28,7 +37,9 @@ export const ImageCard = ({ data }: IImageCardProps) => {
         className={visible ? styles['card__content-visible'] : styles['card__content-invisible']}
       >
         <div className={styles['content__top']}>
-          <button className={styles['content__more']}>Show more</button>
+          <button onClick={showModal} className={styles['content__more']}>
+            Show more
+          </button>
         </div>
         <div className={styles['content__bottom']}>
           <a
