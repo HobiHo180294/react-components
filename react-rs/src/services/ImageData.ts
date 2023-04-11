@@ -37,7 +37,7 @@ type ImageDataUser = {
   location: string;
   name: string;
   portfolio_url: string;
-  portfolio_image: UserProfileImage;
+  profile_image: UserProfileImage;
   social: UserSocial;
   total_collections: number;
   total_likes: number;

@@ -6,42 +6,72 @@ interface IModalMoreProps {
   data: ImageData;
 }
 
-export const ModalMore = ({ data }: IModalMoreProps) => {
-  if (Object.keys(data).length > 0)
-    return (
-      <div className={`${styles.content}`}>
-        <div className="content__left">
-          <div className={`${styles['content__image']}`}>
-            <img
-              className="content__image_value"
-              src={data.urls === undefined ? '' : data.urls.small}
-              alt={data.alt_description}
-            />
-          </div>
-        </div>
-        <div className="content__right">
-          <div className="content__description description">
-            <div className="description__author author">
-              <div className="author__avatar">
-                <img className="author__avatar_value" src="" alt="" />
-              </div>
-
-              <div className="author__info info">
-                <h2 className="info__username"></h2>
-                <h3 className="info__location"></h3>
-              </div>
-
-              <a className="author__subscribe" href="#">
-                Subscribe
-              </a>
-            </div>
-          </div>
-          <div className="content__total total">
-            <div className="total__likes"></div>
-            <div className="total__photos"></div>
-          </div>
+export const ModalMore = ({ data }: IModalMoreProps) =>
+  Object.keys(data).length > 0 ? (
+    <div className={styles.content}>
+      <div className={styles['content__left']}>
+        <div className={styles['content__image']}>
+          <img
+            className={styles['content__image_value']}
+            src={data.urls.small}
+            alt={data.alt_description}
+          />
         </div>
       </div>
-    );
-  else return <div>Error with uploading images...</div>;
-};
+      <div className={styles['content__right']}>
+        <div className="content__description description">
+          <h1 className={styles['content__description_card-title']}>{data.alt_description}</h1>
+
+          <div className={styles.author}>
+            <div className={styles['author__avatar']}>
+              <img
+                className={styles['author__avatar_value']}
+                src={data.user.profile_image.medium}
+                alt={data.user.username}
+              />
+            </div>
+
+            <div className={styles.info}>
+              <h2 className="info__username">@{data.user.username}</h2>
+              <h3 className="info__location">{data.user.location || 'Dnipro, Ukraine'}</h3>
+            </div>
+
+            <a
+              className={styles['author__subscribe']}
+              href={`https://unsplash.com/${data.user.username}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Follow
+            </a>
+          </div>
+        </div>
+        <ul className={styles.total}>
+          <li className={styles['total__followers']}>{data.user.total_likes}</li>
+          <li className={styles['total__photos']}>{data.user.total_photos}</li>
+          <li className="total__social">
+            {data.user.social.instagram_username ? (
+              <a
+                href={`https://www.instagram.com/${data.user.social.instagram_username}`}
+                target="_blank"
+                rel="noreferrer"
+                className={styles['social__ico']}
+              >
+                <img
+                  className={styles['social__image']}
+                  src="./icons/instagram-24px.png"
+                  alt="Instagram"
+                />
+              </a>
+            ) : (
+              <a href={`https://twitter.com/${data.user.social.twitter_username}`}>
+                <img className="social__image" src="./icons/twitter-24px.png" alt="Twitter" />
+              </a>
+            )}
+          </li>
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <div>Error with uploading images...</div>
+  );
