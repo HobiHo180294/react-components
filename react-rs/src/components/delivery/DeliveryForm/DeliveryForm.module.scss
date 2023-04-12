@@ -1,0 +1,23 @@
+.formWrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.cardsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}

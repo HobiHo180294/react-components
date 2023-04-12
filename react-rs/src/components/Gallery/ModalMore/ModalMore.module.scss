@@ -1,0 +1,129 @@
+.content {
+  display: flex;
+
+  &__left {
+    flex: 0 1 45%;
+    margin-right: 15px;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 55%;
+  }
+
+  &__description {
+    &_card-title {
+      margin-top: 0;
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 24px;
+      text-align: center;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  &__image {
+    position: relative;
+    overflow: hidden;
+
+    &_value {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+}
+
+.author {
+  display: flex;
+  align-items: center;
+
+  &__avatar {
+    overflow: hidden;
+
+    &_value {
+      border-radius: 50%;
+    }
+  }
+
+  > * {
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+
+  &__subscribe {
+    font-weight: 500;
+    text-transform: none;
+    background-color: #fff;
+    color: #007bff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}
+
+.info {
+  > * {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+
+    &:first-child {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.total {
+  margin-top: auto;
+  margin-bottom: 0;
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  > * {
+    padding: 10px 0;
+    flex: 0 1 70px;
+    text-align: right;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &__followers {
+    background: url('../../../../public/icons/followers-24px.png') no-repeat 18px 6px;
+  }
+
+  &__photos {
+    background: url('../../../../public/icons/camera-24px.png') no-repeat 12px 6px;
+  }
+}
+
+.social {
+  &__ico {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
