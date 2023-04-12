@@ -22,7 +22,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
-  &__content-visible {
+  &__content {
     position: absolute;
     bottom: 4px;
     left: 0;
@@ -36,10 +36,17 @@
     color: white;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
-    opacity: 1;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    &.invisible {
+      opacity: 0;
+    }
   }
 
-  &__content-invisible {
+  &__content {
     position: absolute;
     bottom: 4px;
     left: 0;

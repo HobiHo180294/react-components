@@ -2,12 +2,10 @@ import { UserLinks, UserProfileImage, UserSocial } from './ImageDataUser';
 
 type ImageDataLinks = { download: string; download_location: string; html: string; self: string };
 
-type ImageDataTags = [
-  {
-    type: string;
-    title: string;
-  }[]
-];
+export type ImageDataTags = {
+  type: string;
+  title: string;
+}[];
 
 type ImageDataTopicSubmissions = {
   'business-work': {
@@ -36,7 +34,7 @@ type ImageDataUser = {
   links: UserLinks;
   location: string;
   name: string;
-  portfolio_url: string;
+  portfolio_url: string | null;
   profile_image: UserProfileImage;
   social: UserSocial;
   total_collections: number;
@@ -52,8 +50,8 @@ export interface ImageData {
   blur_hash: string;
   color: string;
   created_at: string;
-  current_user_collections: [];
-  description: string;
+  current_user_collections: unknown[];
+  description: string | null;
   readonly height: number;
   id: string;
   liked_by_user: boolean;

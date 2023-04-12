@@ -8,7 +8,7 @@ interface IImageCardProps {
   data: ImageData;
 }
 
-export const ImageCard = ({ data }: IImageCardProps) => {
+export const ImageCard = ({ data }: IImageCardProps): JSX.Element => {
   const [visible, setVisibility] = useState<boolean>(false);
   const { setModalOpen } = useContext(ModalContext);
   const { setImageData } = useContext(SelectedImageContext);
@@ -34,7 +34,11 @@ export const ImageCard = ({ data }: IImageCardProps) => {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={visible ? styles['card__content-visible'] : styles['card__content-invisible']}
+        className={
+          visible
+            ? `${styles['card__content']} ${styles.visible}`
+            : `${styles['card__content']} ${styles.invisible}`
+        }
       >
         <div className={styles['content__top']}>
           <button onClick={showModal} className={styles['content__more']}>
