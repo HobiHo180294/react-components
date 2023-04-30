@@ -1,0 +1,43 @@
+.deliveryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
+  margin: 20px;
+  padding: 24px;
+
+  &__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  &__value {
+    color: inherit;
+    background-color: transparent;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

@@ -1,0 +1,17 @@
+.dateBlock {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  label {
+    font-size: 19.2px;
+    margin-bottom: 5px;
+  }
+
+  .dateInput {
+    border: none;
+    border-radius: 5px;
+    font-size: 19.2px;
+    padding: 10px;
+  }
+}
